@@ -4,7 +4,8 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
-
+variables:
+  - group: sonarcloud
 steps:
 - task: NodeTool@0
   inputs:
