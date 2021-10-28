@@ -22,7 +22,7 @@ steps:
   displayName: 'Unit test'
 
 - script: |
-    echo "$organization $projectKey $url $login"
+    echo " ---  $organization --  $projectKey $url $login"
     sed -i "s~_Organization_~$organization~" sonar-project.properties
     sed -i "s~_ProjectKey_~$projectKey~" sonar-project.properties
     sed -i "s~_Url_~$url~" sonar-project.properties
