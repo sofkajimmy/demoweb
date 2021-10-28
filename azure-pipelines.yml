@@ -14,8 +14,12 @@ steps:
 - script: |
     npm install
     npm run build
-  displayName: 'npm install and build'
+  displayName: 'Build'
 
 - script: |    
     npm run test
-  displayName: 'npm test'
+  displayName: 'Unit test'
+
+- script: |    
+    npm run sonar
+  displayName: 'Code Analisys'
