@@ -1,5 +1,4 @@
-pipeline {
-  agent any
+node {
     stage('build') {
         steps {
         sh ''' npm install
