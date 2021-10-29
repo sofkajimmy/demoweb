@@ -1,7 +1,14 @@
-node {
+pipeline {
+    agent {
+        docker {
+            image 'node:6-alpine'
+            args '-p 3000:3000'
+        }
+    }
     stage('build') {
         steps {
-           script { ' npm install npm run build' }
+           sh ' npm install'
+           sh ' npm run build' 
         }
     }
 }
