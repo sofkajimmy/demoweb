@@ -3,17 +3,17 @@ pipeline {
     stages {
         stage('build') {            
             steps {
-                sh ' echo  "install"'                 
+                sh ' npm install'                 
             }
         }
         stage('test') {            
             steps {
-                sh ' echo  "install"'                 
+                sh ' npm run test'                 
             }
         }
         stage('analisis code') {            
             steps {
-                sh ' echo  "install"'                 
+                sh ' npm run sonar'                 
             }
         }
     }
