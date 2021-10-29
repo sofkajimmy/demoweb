@@ -1,10 +1,19 @@
 pipeline {
-    agent any
-    tool name: 'nodejenkins', type: 'nodejs'
+    agent any   
     stages {
         stage('build') {            
             steps {
-                sh ' npm install'                 
+                sh ' echo  "install"'                 
+            }
+        }
+        stage('test') {            
+            steps {
+                sh ' echo  "install"'                 
+            }
+        }
+        stage('analisis code') {            
+            steps {
+                sh ' echo  "install"'                 
             }
         }
     }
