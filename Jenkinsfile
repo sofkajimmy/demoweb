@@ -21,7 +21,7 @@ pipeline {
                 sed -i "s~_ProjectKey_~${projectKey}~" sonar-project.properties
                 sed -i "s~_Url_~${url}~" sonar-project.properties
                 sed -i "s~_Login_~${login}~" sonar-project.properties
-                sh ' echo " sonar"'                 
+                sh ' npm run sonar'                 
             }
         }
     }
