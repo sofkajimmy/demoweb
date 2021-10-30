@@ -1,19 +1,23 @@
 pipeline {
-    agent any   
+   agent { label 'aceptest' }
+    tools {
+        nodejs 'nodejenkins' 
+    }
     stages {
         stage('build') {            
             steps {
-                sh ' npm install'                 
+                bat 'dir'
+                bat 'npm install'
             }
         }
         stage('test') {            
             steps {
-                sh ' npm run test'                 
+                bat ' npm run test'                 
             }
         }
         stage('analisis code') {            
             steps {
-                sh ' npm run sonar'                 
+                bat ' echo " sonar"'                 
             }
         }
     }
