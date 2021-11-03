@@ -22,6 +22,6 @@ steps:
   displayName: 'Unit test'
 
 - script: |
-    chmod +x sonar.sh & ./sonar.sh 0
+    chmod +x sonar.sh && ./sonar.sh 0
     npm run sonar
   displayName: 'Code Analisys'
