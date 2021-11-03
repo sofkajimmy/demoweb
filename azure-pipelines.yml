@@ -23,5 +23,6 @@ steps:
 
 - script: |
     chmod +x sonar.sh && ./sonar.sh 0
+    cat sonar-project.properties
     npm run sonar
   displayName: 'Code Analisys'
