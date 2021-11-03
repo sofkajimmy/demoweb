@@ -10,17 +10,14 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('test') {            
+        stage('unit test') {            
             steps {
                 sh ' npm run test'                 
             }
         }
         stage('analisis code') {            
-            steps {    
-                sh 'sed -i "s~_Organization_~${organization}~" sonar-project.properties'
-                sh 'sed -i "s~_ProjectKey_~${projectKey}~" sonar-project.properties'
-                sh 'sed -i "s~_Url_~${url}~" sonar-project.properties'
-                sh 'sed -i "s~_Login_~${login}~" sonar-project.properties'
+            steps {                    
+                sh './sonar.sh 1'
                 sh ' npm run sonar'                 
             }
         }

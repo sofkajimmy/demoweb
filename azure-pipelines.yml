@@ -15,18 +15,13 @@ steps:
 - script: |
     npm install
     npm run build
-  displayName: 'Build'
+  displayName: 'Build App'
 
 - script: |    
     npm run test
   displayName: 'Unit test'
 
 - script: |
-    echo " ---  $organization --  $projectKey $url $login"
-    sed -i "s~_Organization_~$(organization)~" sonar-project.properties
-    sed -i "s~_ProjectKey_~$(projectKey)~" sonar-project.properties
-    sed -i "s~_Url_~$(url)~" sonar-project.properties
-    sed -i "s~_Login_~$(login)~" sonar-project.properties
-    cat sonar-project.properties
+    ./sonar.sh 0
     npm run sonar
   displayName: 'Code Analisys'
