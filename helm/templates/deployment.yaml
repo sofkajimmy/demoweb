@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  {{ .Values.appName }}
+  namespace: {{ .Values.nameSpace }}
+  labels:
+    app:  {{ .Values.appName }}
+spec:
+  minReadySeconds: {{ .Values.deployment.minReadySeconds }}
+  progressDeadlineSeconds: {{ .Values.deployment.progressDeadlineSeconds }}
+  replicas: {{ .Values.app.replicas }}
+  revisionHistoryLimit: {{ .Values.deployment.revisionHistoryLimit }}
+  selector:
+    matchLabels:
+      app:  {{ .Values.appName }}
+  strategy:
+    rollingUpdate:
+      maxSurge: {{ .Values.deployment.strategy.maxSurge }}
+      maxUnavailable: {{ .Values.deployment.strategy.maxUnavailable }}
+    type: {{ .Values.deployment.strategy.type }}
+  template:
+    metadata:
+      labels:
+        app:  {{ .Values.appName }}
+    spec:
+      containers:
+        - name:  {{ .Values.appName }}
+          image: {{ .Values.deployment.image }}
+          imagePullPolicy: {{ .Values.deployment.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.deployment.ports.targetPort }}
+          terminationMessagePath: {{ .Values.app.terminationMessagePath }}
+          terminationMessagePolicy: {{ .Values.app.terminationMessagePolicy }}
+      dnsPolicy: {{ .Values.app.dnsPolicy }}
+      restartPolicy: {{ .Values.deployment.restartPolicy }}
+      schedulerName: {{ .Values.app.schedulerName }}
+      terminationGracePeriodSeconds: {{ .Values.deployment.ports.terminationGracePeriodSeconds }}
+      securityContext: { }

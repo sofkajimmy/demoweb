@@ -1,0 +1,18 @@
+nameSpace: "namespacejenkins"
+appName : "jenkinstest"
+deployment:
+  image : jenkins/jenkins
+  imagePullPolicy: Always
+  restartPolicy: Always
+  minReadySeconds: 30
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 10
+  terminationGracePeriodSeconds : 30
+  strategy:
+    type: RollingUpdate
+    maxSurge: 25%
+    maxUnavailable: 25%
+  type: NodePort
+  ports:
+    port: 8080
+    targetPort: 8080
