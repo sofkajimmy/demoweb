@@ -17,7 +17,7 @@ pipeline {
         }
         stage('analisis code') {            
             steps {                    
-                sh './sonar.sh 1'
+                sh 'chmod +x sonar.sh & ./sonar.sh 1'
                 sh ' npm run sonar'                 
             }
         }
