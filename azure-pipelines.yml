@@ -17,6 +17,13 @@ steps:
     npm run build
   displayName: 'Build'
 
+- task: Docker@2
+  inputs:
+    containerRegistry: 'dockerP'
+    repository: 'cabunga/demoweb'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+
 - script: |    
     npm run test
   displayName: 'Unit test'
