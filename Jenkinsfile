@@ -7,7 +7,12 @@ pipeline {
         stage('build') {            
             steps {
                 sh 'ls'
-                sh 'npm install'
+                sh 'npm install && npm run build'
+            }
+        }
+        stage('container') {            
+            steps {
+                sh 'docker build -t demoweb .'                 
             }
         }
         stage('test') {            
