@@ -44,12 +44,37 @@ stages:
         displayName: 'Code Analisys'
 - stage: 'Despliegue_Continuo'
   pool:
-   vmImage: ubuntu-latest
+   vmImage: ubuntu-latest  
   jobs:
     - job: 'CD'
       steps:
+        
         - task: Bash@3
+          displayName: 'Deploy App'
           inputs:
             targetType: 'inline'
             script: |
-              docker run -d -p 81:80 cabunga/demoweb:$(Build.BuildId)
+              docker run -d -p --name=test 81:80 cabunga/demoweb:$(Build.BuildId)
+              docker stop test
+              docker rmi test
+        - task: Bash@3
+          displayName: 'Functional Test'
+          inputs:
+            targetType: 'inline'
+            script: |
+              git clone https://github.com/sofkajimmy/aceptestmvn.git && cd aceptestmvn
+              chmod +x run.sh
+              ./run.sh
+        - task: Bash@3
+          displayName: 'Performance Test'
+          inputs:
+            targetType: 'inline'
+            script: |
+              git clone https://github.com/sofkajimmy/performancetest.git && cd performancetest
+              chmod +x test.sh
+              ./test.sh
+        
+        - task: DeleteFiles@1
+          displayName: Clean workspace
+          inputs:              
+              Contents: '**/*'
