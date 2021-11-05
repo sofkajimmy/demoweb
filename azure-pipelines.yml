@@ -4,7 +4,7 @@ trigger:
 
 
 stages:
-- stage: 'Integracion Continua'
+- stage: 'Integracion_Continua'
   pool:
     vmImage: ubuntu-latest
   variables:
@@ -42,7 +42,7 @@ stages:
           cat sonar-project.properties
           npm run sonar
         displayName: 'Code Analisys'
-- stage: 'Despliegue Continuo'
+- stage: 'Despliegue_Continuo'
   pool:
    vmImage: ubuntu-latest
   jobs:
