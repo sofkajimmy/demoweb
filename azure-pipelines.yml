@@ -62,7 +62,7 @@ stages:
             targetType: 'inline'
             script: |
               git clone https://github.com/sofkajimmy/aceptestmvn.git && cd aceptestmvn
-              chmod +x run.sh
+              ls && chmod +x run.sh
               ./run.sh
         - task: Bash@3
           displayName: 'Performance Test'
@@ -70,7 +70,7 @@ stages:
             targetType: 'inline'
             script: |
               git clone https://github.com/sofkajimmy/performancetest.git && cd performancetest
-              chmod +x test.sh
+              ls && chmod +x test.sh
               ./test.sh
         
         - task: DeleteFiles@1
