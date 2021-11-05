@@ -2,38 +2,54 @@
 trigger:
 - master
 
-pool:
-  vmImage: ubuntu-latest
-variables:
-  - group: sonarcloud
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '14.x'
-  displayName: 'Install Node.js'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'Build'
+stages:
+- stage: 'Integracion Continua'
+  pool:
+    vmImage: ubuntu-latest
+  variables:
+    - group: sonarcloud
+  jobs:
+    - job: 'IC'
+      steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '14.x'
+        displayName: 'Install Node.js'
 
-- task: Docker@2
-  inputs:
-    containerRegistry: 'dockerP'
-    repository: 'cabunga/demoweb'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
+      - script: |
+          npm install
+          npm run build
+        displayName: 'Build'
 
-- script: |    
-    npm run test
-  displayName: 'Unit test'
+      - task: Docker@2
+        inputs:
+          containerRegistry: 'dockerP'
+          repository: 'cabunga/demoweb'
+          command: 'buildAndPush'
+          Dockerfile: '**/Dockerfile'
 
-- script: |
-    echo " ---  $organization --  $projectKey $url $login"
-    sed -i "s~_Organization_~$(organization)~" sonar-project.properties
-    sed -i "s~_ProjectKey_~$(projectKey)~" sonar-project.properties
-    sed -i "s~_Url_~$(url)~" sonar-project.properties
-    sed -i "s~_Login_~$(login)~" sonar-project.properties
-    cat sonar-project.properties
-    npm run sonar
-  displayName: 'Code Analisys'
+      - script: |    
+          npm run test
+        displayName: 'Unit test'
+
+      - script: |
+          echo " ---  $organization --  $projectKey $url $login"
+          sed -i "s~_Organization_~$(organization)~" sonar-project.properties
+          sed -i "s~_ProjectKey_~$(projectKey)~" sonar-project.properties
+          sed -i "s~_Url_~$(url)~" sonar-project.properties
+          sed -i "s~_Login_~$(login)~" sonar-project.properties
+          cat sonar-project.properties
+          npm run sonar
+        displayName: 'Code Analisys'
+- stage: 'Despliegue Continuo'
+  pool:
+   vmImage: ubuntu-latest
+  jobs:
+    - job: 'CD'
+      steps:
+        - task: Bash@3
+          inputs:
+            targetType: 'inline'
+            script: |
+              docker run -d -p 81:80 cabunga/demoweb:$(Build.BuildId)
