@@ -54,9 +54,8 @@ stages:
           inputs:
             targetType: 'inline'
             script: |
-              docker run -d -p --name=test 81:80 cabunga/demoweb:$(Build.BuildId)
-              docker stop test
-              docker rmi test
+              docker run -d -p  81:80 cabunga/demoweb:$(Build.BuildId)
+
         - task: Bash@3
           displayName: 'Functional Test'
           inputs:
