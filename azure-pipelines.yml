@@ -75,7 +75,7 @@ stages:
         - task: owaspzap@1
           inputs:
             scantype: 'targetedScan'
-            url: 'https://blazedemo.com/'
+            url: 'https://blazedemo.com'
             port: '443'
         - task: DeleteFiles@1
           displayName: Clean workspace
