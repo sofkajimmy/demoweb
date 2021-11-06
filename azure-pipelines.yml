@@ -72,7 +72,10 @@ stages:
               git clone https://github.com/sofkajimmy/performancetest.git && cd performancetest
               ls && chmod +x test.sh
               ./test.sh
-        
+        - task: owaspzap@1
+          inputs:
+            scantype: 'targetedScan'
+            url: 'https://blazedemo.com/'
         - task: DeleteFiles@1
           displayName: Clean workspace
           inputs:              
