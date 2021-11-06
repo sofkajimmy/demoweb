@@ -32,7 +32,7 @@ pipeline {
         stage('Deploy') {            
             steps {
                 sh ' docker build -t cabunga/demoweb:${BUILD_NUMBER} .'
-                sh ' docker run -d -p  81:80 cabunga/demoweb:${BUILD_NUMBER}'                 
+                sh ' docker run -d -p  8${BUILD_NUMBER}:80 cabunga/demoweb:${BUILD_NUMBER}'                 
             }
         }
         stage('Functional Test') {            
