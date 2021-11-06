@@ -42,7 +42,7 @@ stages:
           cat sonar-project.properties
           npm run sonar
         displayName: 'Code Analisys'
-- stage: 'Despliegue_Continuo'
+- stage: 'Entrega_Continua'
   pool:
    vmImage: ubuntu-latest  
   jobs:
@@ -77,3 +77,17 @@ stages:
             scantype: 'targetedScan'
             url: 'https://blazedemo.com'
             port: '443'
+- stage: 'Deploy_Continuo'
+  pool:
+   vmImage: ubuntu-latest  
+  jobs:
+    - job: 'CD'
+      steps:
+        
+        - task: Bash@3
+          displayName: 'Deploy App'
+          inputs:
+            targetType: 'inline'
+            script: |
+              docker run -d -p  81:80 cabunga/demoweb:$(Build.BuildId)
+        
