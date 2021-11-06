@@ -29,5 +29,27 @@ pipeline {
                 sh ' npm run sonar'                 
             }
         }
+        stage('Deploy') {            
+            steps {
+                sh ' docker run -d -p  81:80 cabunga/demoweb:${BUILD_NUMBER}'                 
+            }
+        }
+        stage('Functional Test') {            
+            steps {
+                sh 'git clone https://github.com/sofkajimmy/aceptestmvn.git && cd aceptestmvn && chmod +x run.sh && ./run.sh'                 
+            }
+        }
+        stage('Performance Test') {            
+            steps {
+                sh ' git clone https://github.com/sofkajimmy/performancetest.git && cd performancetest \
+              ls && chmod +x test.sh \
+              ./test.sh'                 
+            }
+        }
+        stage('Security Test') {            
+            steps {
+                sh ' echo "owasp test"'                 
+            }
+        }
     }
 }
