@@ -79,7 +79,7 @@ stages:
             port: '443'
 - stage: 'Deploy_Continuo'
   pool:
-   vmImage: ubuntu-latest  
+   vmImage: windows-latest  
   jobs:
     - job: 'CD'
       steps:
