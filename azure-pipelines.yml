@@ -16,12 +16,23 @@ stages:
         inputs:
           versionSpec: '14.x'
         displayName: 'Install Node.js'
+      
 
       - script: |
           npm install
           npm run build
         displayName: 'Build'
-
+      - task: ArchiveFiles@2
+        inputs:
+          rootFolderOrFile: '$(Build.BinariesDirectory)'
+          includeRootFolder: true
+          archiveType: 'zip'
+          archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+          replaceExistingArchive: true
+      - script: |
+          ls
+          jfrog rt upload --url $urlartefactory --access-token $tokenartifactory $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip java-web-app/
+        displayName: jfrog
       - task: Docker@2
         inputs:
           containerRegistry: 'dockerP'
