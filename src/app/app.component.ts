@@ -6,8 +6,8 @@ import { SaludoService } from '../app/saludo.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Proteccion';
-  resultado:string;
+  title = 'GB';
+  resultado='';
   constructor(private service:SaludoService){}
   saludo(){
     this.service.saludar().subscribe(
