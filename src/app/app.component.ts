@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { SaludoService } from '../app/saludo.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,4 +7,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Proteccion';
+  resultado:string;
+  constructor(private service:SaludoService){}
+  saludo(){
+    this.service.saludar().subscribe(
+      data=>{
+        this.resultado=data+'';
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
 }
