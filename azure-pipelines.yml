@@ -22,12 +22,6 @@ stages:
           npm run build
         displayName: 'Build'
 
-      - task: Docker@2
-        inputs:
-          containerRegistry: 'dockerP'
-          repository: 'kamentsa/demoweb'
-          command: 'buildAndPush'
-          Dockerfile: '**/Dockerfile'
 
       - script: |    
           npm run test
@@ -42,6 +36,13 @@ stages:
           cat sonar-project.properties
           npm run sonar
         displayName: 'Code Analisys'
+      - task: Docker@2
+        inputs:
+          containerRegistry: 'dockerP'
+          repository: 'kamentsa/demoweb'
+          command: 'buildAndPush'
+          Dockerfile: '**/Dockerfile'
+
 - stage: 'Entrega_Continua'
   pool:
    vmImage: ubuntu-latest  
@@ -54,7 +55,7 @@ stages:
           inputs:
             targetType: 'inline'
             script: |
-              docker run -d -p  81:80 cabunga/demoweb:$(Build.BuildId)
+              docker run -d -p  81:80 kamentsa/demoweb:$(Build.BuildId)
 
         - task: Bash@3
           displayName: 'Functional Test'
