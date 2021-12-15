@@ -57,12 +57,11 @@ stages:
         - checkout: git://MejoraContinua/iac_vm
         - bash: |            
             pwd
-            cd terraform            
+            cd terraform/k8s            
             echo 'azure_client_id=$(azure_client_id)
             azure_client_secret=$(azure_client_secret)
             azure_subscription_id=$(azure_subscription_id)
-            azure_tenant_id=$(azure_tenant_id)'>terraform.tfvars
-            cat terraform.tfvars
+            azure_tenant_id=$(azure_tenant_id)'>terraform.tfvars            
             terraform init
             terraform plan
             terraform apply -auto-approve          
