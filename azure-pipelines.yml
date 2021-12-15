@@ -45,7 +45,8 @@ stages:
 
 - stage: 'Entrega_Continua'
   pool:
-   vmImage: ubuntu-latest  
+   name: demoterra
+   #vmImage: ubuntu-latest  
   variables:
     - group: azure-suscription
   jobs:
