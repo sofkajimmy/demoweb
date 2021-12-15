@@ -51,8 +51,8 @@ stages:
     - group: azure-suscription
   jobs:
     - job: 'CD'
-      workspace:
-        clean: all
+      #workspace:
+      #  clean: all
       steps:
         - checkout: git://MejoraContinua/iac_vm
         - bash: |            
