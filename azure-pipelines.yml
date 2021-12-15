@@ -51,10 +51,13 @@ stages:
     - group: azure-suscription
   jobs:
     - job: 'CD'
+      workspace:
+        clean: all
       steps:
-        - checkout: git://MejoraContinua/iac_vm@develop
+        - checkout: git://MejoraContinua/iac_vm
         - bash: |            
-            cd _iac_vm/terraform            
+            pwd
+            cd terraform            
             echo 'azure_client_id=$(azure_client_id)
             azure_client_secret=$(azure_client_secret)
             azure_subscription_id=$(azure_subscription_id)
