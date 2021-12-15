@@ -62,7 +62,7 @@ stages:
           inputs:
             targetType: 'inline'
             script: |
-              git clone https://github.com/sofkajimmy/aceptestmvn.git && cd aceptestmvn
+              git clone -b develop https://github.com/sofkajimmy/aceptestmvn.git && cd aceptestmvn
               ls && chmod +x run.sh
               ./run.sh
         - task: Bash@3
@@ -90,7 +90,7 @@ stages:
           inputs:
             targetType: 'inline'
             script: |
-              docker run -d -p  81:80 cabunga/demoweb:$(Build.BuildId)
+              docker run -d -p  81:80 kamentsa/demoweb:$(Build.BuildId)
         - task: SmokeWebTest@1
           inputs:
             url: 'https://blazedemo.com/'
