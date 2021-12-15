@@ -46,10 +46,23 @@ stages:
 - stage: 'Entrega_Continua'
   pool:
    vmImage: ubuntu-latest  
+  variables:
+    - group: azure-suscription
   jobs:
     - job: 'CD'
       steps:
-        
+        - checkout: git://MejoraContinua/iac_vm
+        - bash: |            
+            cd _iac_vm            
+            echo 'azure_client_id=$(azure_client_id)
+            azure_client_secret=$(azure_client_secret)
+            azure_subscription_id=$(azure_subscription_id)
+            azure_tenant_id=$(azure_tenant_id)'>terraform.tfvars
+            cat terraform.tfvars
+            terraform init
+            terraform plan
+            terraform apply -auto-approve          
+          displayName: 'IaC VM'
         - task: Bash@3
           displayName: 'Deploy App'
           inputs:
