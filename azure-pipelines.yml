@@ -52,7 +52,7 @@ stages:
   jobs:
     - job: 'CD'
       steps:
-        - checkout: git://MejoraContinua/iac_vm
+        - checkout: git://MejoraContinua/iac_vm@develop
         - bash: |            
             cd _iac_vm            
             echo 'azure_client_id=$(azure_client_id)
