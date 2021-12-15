@@ -54,7 +54,7 @@ stages:
       steps:
         - checkout: git://MejoraContinua/iac_vm@develop
         - bash: |            
-            cd _iac_vm            
+            cd _iac_vm/terraform            
             echo 'azure_client_id=$(azure_client_id)
             azure_client_secret=$(azure_client_secret)
             azure_subscription_id=$(azure_subscription_id)
