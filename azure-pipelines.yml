@@ -54,7 +54,7 @@ stages:
       #workspace:
       #  clean: all
       steps:
-        - checkout: git://MejoraContinua/iac_vm
+        - checkout: git://MejoraContinua/iac_vm@develop
         - bash: |            
             pwd
             cd terraform/k8s            
@@ -71,7 +71,7 @@ stages:
           inputs:
             targetType: 'inline'
             script: |
-              docker run -d -p  81:80 kamentsa/demoweb:$(Build.BuildId)
+              helm install test-demoweb -f dev.yaml . --wait
 
         - task: Bash@3
           displayName: 'Functional Test'
