@@ -72,7 +72,8 @@ stages:
             targetType: 'inline'
             script: |
               pwd
-              cd helm
+              cd helm/front
+              pwd
               helm install test-demoweb -f dev.yaml . --wait
 
         - task: Bash@3
